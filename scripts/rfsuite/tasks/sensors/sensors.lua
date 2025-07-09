@@ -29,7 +29,10 @@ local delayDuration = 2  -- seconds
 local delayStartTime = nil
 local delayPending = false
 
-local msp = assert(loadfile("tasks/sensors/msp.lua"))(config)
+local msp = assert(rfsuite.compiler.loadfile("tasks/sensors/msp.lua"))(config)
+local smart = assert(rfsuite.compiler.loadfile("tasks/sensors/smart.lua"))(config)
+local log = rfsuite.utils.log
+local tasks = rfsuite.tasks
 
 --[[
     loadSensorModule - Loads the appropriate sensor module based on the current protocol and preferences.
@@ -44,31 +47,31 @@ local msp = assert(loadfile("tasks/sensors/msp.lua"))(config)
         nil - If the tasks are not active or the API version is not available.
 ]]
 local function loadSensorModule()
-    if not rfsuite.tasks.active() then return nil end
+    if not tasks.active() then return nil end
     if not rfsuite.session.apiVersion then return nil end
 
-    local protocol = rfsuite.tasks.msp.protocol.mspProtocol
+    local protocol = tasks.msp.protocol.mspProtocol
 
-    if system:getVersion().simulation == true and rfsuite.preferences.internalSimSensors == true then
+    if system:getVersion().simulation == true then
         if not loadedSensorModule or loadedSensorModule.name ~= "sim" then
-            --rfsuite.utils.log("Loading Simulator sensor module","info")
-            loadedSensorModule = {name = "sim", module = assert(loadfile("tasks/sensors/sim.lua"))(config)}
+            --log("Loading Simulator sensor module","info")
+            loadedSensorModule = {name = "sim", module = assert(rfsuite.compiler.loadfile("tasks/sensors/sim.lua"))(config)}
         end   
-    elseif protocol == "crsf" and rfsuite.preferences.internalElrsSensors then
+    elseif protocol == "crsf" then
         if not loadedSensorModule or loadedSensorModule.name ~= "elrs" then
-            --rfsuite.utils.log("Loading ELRS sensor module","info")
-            loadedSensorModule = {name = "elrs", module = assert(loadfile("tasks/sensors/elrs.lua"))(config)}
+            --log("Loading ELRS sensor module","info")
+            loadedSensorModule = {name = "elrs", module = assert(rfsuite.compiler.loadfile("tasks/sensors/elrs.lua"))(config)}
         end
-    elseif protocol == "sport" and rfsuite.preferences.internalSportSensors then
+    elseif protocol == "sport" then
         if rfsuite.utils.round(rfsuite.session.apiVersion,2) >= 12.08 then
             if not loadedSensorModule or loadedSensorModule.name ~= "frsky" then
-                --rfsuite.utils.log("Loading FrSky sensor module","info")
-                loadedSensorModule = {name = "frsky", module = assert(loadfile("tasks/sensors/frsky.lua"))(config)}
+                --log("Loading FrSky sensor module","info")
+                loadedSensorModule = {name = "frsky", module = assert(rfsuite.compiler.loadfile("tasks/sensors/frsky.lua"))(config)}
             end
         else
             if not loadedSensorModule or loadedSensorModule.name ~= "frsky_legacy" then
-                --rfsuite.utils.log("Loading FrSky Legacy sensor module","info")
-                loadedSensorModule = {name = "frsky_legacy", module = assert(loadfile("tasks/sensors/frsky_legacy.lua"))(config)}
+                --log("Loading FrSky Legacy sensor module","info")
+                loadedSensorModule = {name = "frsky_legacy", module = assert(rfsuite.compiler.loadfile("tasks/sensors/frsky_legacy.lua"))(config)}
             end
         end
     else
@@ -77,18 +80,18 @@ local function loadSensorModule()
 end
 
 function sensors.wakeup()
-    
+
     if rfsuite.session.resetSensors and not delayPending then
         delayStartTime = os.clock()
         delayPending = true
         rfsuite.session.resetSensors = false  -- Reset immediately
-        rfsuite.utils.log("Delaying sensor wakeup for " .. delayDuration .. " seconds","info")
+        log("Delaying sensor wakeup for " .. delayDuration .. " seconds","info")
         return  -- Exit early; wait starts now
     end
 
     if delayPending then
         if os.clock() - delayStartTime >= delayDuration then
-            rfsuite.utils.log("Delay complete; resuming sensor wakeup","info")
+            log("Delay complete; resuming sensor wakeup","info")
             delayPending = false
         else
             local module = model.getModule(rfsuite.session.telemetrySensor:module())
@@ -100,11 +103,17 @@ function sensors.wakeup()
     loadSensorModule()
     if loadedSensorModule and loadedSensorModule.module.wakeup then
         loadedSensorModule.module.wakeup()
-    end
 
-    -- run msp sensors
-    if msp and msp.wakeup then
-        msp.wakeup()
+        -- run msp sensors
+        if msp and msp.wakeup then
+            msp.wakeup()
+        end
+
+        -- run smart sensors
+        if smart and smart.wakeup then
+            smart.wakeup()
+        end        
+
     end
 
 end

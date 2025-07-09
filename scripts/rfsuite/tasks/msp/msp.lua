@@ -29,7 +29,7 @@ local msp = {}
 msp.activeProtocol = nil
 msp.onConnectChecksInit = true
 
-local protocol = assert(loadfile("tasks/msp/protocols.lua"))()
+local protocol = assert(rfsuite.compiler.loadfile("tasks/msp/protocols.lua"))()
 
 
 msp.mspQueue = mspQueue
@@ -39,7 +39,7 @@ msp.protocol = protocol.getProtocol()
 
 -- preload all transport methods
 msp.protocolTransports = {}
-for i, v in pairs(protocol.getTransports()) do msp.protocolTransports[i] = assert(loadfile(v))() end
+for i, v in pairs(protocol.getTransports()) do msp.protocolTransports[i] = assert(rfsuite.compiler.loadfile(v))() end
 
 -- set active transport table to use
 local transport = msp.protocolTransports[msp.protocol.mspProtocol]
@@ -48,26 +48,15 @@ msp.protocol.mspSend = transport.mspSend
 msp.protocol.mspWrite = transport.mspWrite
 msp.protocol.mspPoll = transport.mspPoll
 
-msp.mspQueue = assert(loadfile("tasks/msp/mspQueue.lua"))()
+msp.mspQueue = assert(rfsuite.compiler.loadfile("tasks/msp/mspQueue.lua"))()
 msp.mspQueue.maxRetries = msp.protocol.maxRetries
-msp.mspHelper = assert(loadfile("tasks/msp/mspHelper.lua"))()
-msp.api = assert(loadfile("tasks/msp/api.lua"))()
-msp.common = assert(loadfile("tasks/msp/common.lua"))()
+msp.mspHelper = assert(rfsuite.compiler.loadfile("tasks/msp/mspHelper.lua"))()
+msp.api = assert(rfsuite.compiler.loadfile("tasks/msp/api.lua"))()
+msp.common = assert(rfsuite.compiler.loadfile("tasks/msp/common.lua"))()
 
 local delayDuration = 2  -- seconds
 local delayStartTime = nil
 local delayPending = false
-
-function msp.resetState()
-    rfsuite.session.servoOverride = nil
-    rfsuite.session.servoCount = nil
-    rfsuite.session.tailMode = nil
-    rfsuite.session.apiVersion = nil
-    rfsuite.session.clockSet = nil
-    rfsuite.session.clockSetAlart = nil
-    rfsuite.session.craftName = nil
-    rfsuite.session.modelID = nil
-end
 
 function msp.wakeup()
 
@@ -118,12 +107,12 @@ function msp.wakeup()
         msp.protocol.mspWrite = transport.mspWrite
         msp.protocol.mspPoll = transport.mspPoll
 
-        msp.resetState()
+        rfsuite.utils.session()
         msp.onConnectChecksInit = true
     end
 
     if rfsuite.session.telemetrySensor ~= nil and rfsuite.session.telemetryState == false then
-        msp.resetState()
+        rfsuite.utils.session()
         msp.onConnectChecksInit = true
     end
 
@@ -156,7 +145,7 @@ function msp.reset()
     msp.sensor = nil
     msp.activeProtocol = nil
     msp.onConnectChecksInit = true
-    msp.resetState()
+    rfsuite.utils.session()
 end
 
 return msp

@@ -19,7 +19,7 @@
 
 ]] --
 local pages = {}
-local sections = loadfile("app/modules/sections.lua")()
+local sections = rfsuite.compiler.loadfile("app/modules/sections.lua")()
 
 -- find the modules (this should already have been done in the tasks/tasks.lua script but we catch and retry on the offchance it hasn't)
 if rfsuite.app.moduleList == nil then rfsuite.app.moduleList = rfsuite.utils.findModules() end
@@ -34,7 +34,7 @@ end
 for _, module in ipairs(rfsuite.app.moduleList) do
     local sectionIndex = findSectionIndex(module.section)
     if sectionIndex then
-        pages[#pages + 1] = {title = module.title, section = sectionIndex, script = module.script, order = module.order or 0, image = module.image, folder = module.folder, ethosversion = module.ethosversion, mspversion = module.mspversion, apiform = module.apiform}
+        pages[#pages + 1] = {title = module.title, section = sectionIndex, script = module.script, order = module.order or 0, image = module.image, folder = module.folder, ethosversion = module.ethosversion, mspversion = module.mspversion, apiform = module.apiform, offline = module.offline or false}
     else
         rfsuite.utils.log("Warning: Section '" .. module.section .. "' not found for module '" .. module.title .. "'","debug")
     end
