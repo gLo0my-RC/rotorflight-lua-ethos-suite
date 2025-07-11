@@ -93,7 +93,7 @@ return {
       ["tbl_alwayson"] = "Toujours Allume",
       ["throttle_min"] = "Valeur minimale des gaz",
       ["tbl_disabled"] = "Desactive",
-      ["tbl_auto"] = "Auto",
+      ["tbl_auto"] = "Automatique",
       ["starting_torque"] = "Couple de demarrage pour le moteur",
       ["cell_count"] = "Nombre de cellules dans la batterie",
       ["motor_erpm_max"] = "RPM maximum",
@@ -247,7 +247,7 @@ return {
       ["tbl_reverse"] = "Inverse"
     },
     ["PILOT_CONFIG"] = {
-      ["model_param1_value"] = "Set this to the expected flight time in seconds.  The transmitter will beep when the flight time is reached."
+      ["model_param1_value"] = "Reglez ceci sur la duree de vol prevue en secondes. La radiocommande emettra un bip lorsque la duree sera atteinte."
     },
     ["BATTERY_CONFIG"] = {
       ["vbatmincellvoltage"] = "Tension minimale par cellule avant le declenchement de l'alarme de basse tension.",
@@ -393,6 +393,13 @@ return {
     ["msg_connecting_to_fbl"] = "Connexion au controleur de vol...",
     ["navigation_help"] = "?",
     ["modules"] = {
+      ["stats"] = {
+        ["name"] = "Stats",
+        ["totalflighttime"] = "Total Flight Time",
+        ["flightcount"] = "Flight Count",
+        ["lastflighttime"] = "Last Flight Time",
+        ["help_p1"] = "Use this module to update the recorded flight statistics on the flight controller."
+      },
       ["settings"] = {
         ["name"] = "Paramètres",
         ["no_themes_available_to_configure"] = "Aucun theme configurable n'est installe sur cet appareil",
@@ -1176,7 +1183,7 @@ return {
       ["governor"] = "Status du Gouverneur",
       ["adj_func"] = "Ajustements Fonctions",
       ["fuel"] = "Niveau de Carburant",
-      ["smartfuel"] = "Carburant intelligent",
+      ["smartfuel"] = "Smart Fuel",
       ["rssi"] = "Signal du Recepteur",
       ["adj_val"] = "Ajustements Valeurs",
       ["arming_flags"] = "Drapeaux Armement",

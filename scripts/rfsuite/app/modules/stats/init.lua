@@ -1,5 +1,4 @@
 --[[
-
  * Copyright (C) Rotorflight Project
  *
  *
@@ -18,24 +17,13 @@
  * 
 
 ]] --
---
--- background processing of ini traffic
---
-local arg = {...}
-local config = arg[1]
+local init = {
+    title = rfsuite.i18n.get("app.modules.stats.name"), -- title of the page
+    section = "hardware", -- section in which the page will be displayed
+    script = "stats.lua", -- run this script
+    image = "stats.png", -- image for the page
+    order = 10, -- order in the section
+    ethosversion = {1, 6, 2} -- disable button if ethos version is less than this
+}
 
-local ini = {}
-
-
-ini.api = assert(rfsuite.compiler.loadfile("tasks/ini/api.lua"))()
-
-function ini.wakeup()
-    -- currently no processing required
-    -- will never fire as interval is set to -1
-end
-
-function ini.reset()
-    -- currently no reset required
-end
-
-return ini
+return init
