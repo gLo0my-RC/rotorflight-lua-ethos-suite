@@ -63,7 +63,7 @@ local function loadSensorModule()
             loadedSensorModule = {name = "elrs", module = assert(rfsuite.compiler.loadfile("tasks/sensors/elrs.lua"))(config)}
         end
     elseif protocol == "sport" then
-        if rfsuite.utils.round(rfsuite.session.apiVersion,2) >= 12.08 then
+        if rfsuite.utils.apiVersionCompare(">=", "12.08") then
             if not loadedSensorModule or loadedSensorModule.name ~= "frsky" then
                 --log("Loading FrSky sensor module","info")
                 loadedSensorModule = {name = "frsky", module = assert(rfsuite.compiler.loadfile("tasks/sensors/frsky.lua"))(config)}
@@ -94,25 +94,23 @@ function sensors.wakeup()
             log("Delay complete; resuming sensor wakeup","info")
             delayPending = false
         else
-            local module = model.getModule(rfsuite.session.telemetrySensor:module())
-            if module ~= nil and module.muteSensorLost ~= nil then module:muteSensorLost(5.0) end
             return  -- Still waiting; do nothing
         end
     end
 
     loadSensorModule()
     if loadedSensorModule and loadedSensorModule.module.wakeup then
+        
         loadedSensorModule.module.wakeup()
 
-        -- run msp sensors
-        if msp and msp.wakeup then
-            msp.wakeup()
-        end
+        if rfsuite.session and rfsuite.session.isConnected then
+            -- run msp sensors
+            if msp and msp.wakeup then msp.wakeup() end
 
-        -- run smart sensors
-        if smart and smart.wakeup then
-            smart.wakeup()
-        end        
+            -- run smart sensors
+            if smart and smart.wakeup then smart.wakeup() end
+ 
+        end
 
     end
 
@@ -120,12 +118,11 @@ end
 
 function sensors.reset()
 
-    if loadedSensorModule and loadedSensorModule.module and loadedSensorModule.module.reset then
-        loadedSensorModule.module.reset()
-    end
-
+    if loadedSensorModule and loadedSensorModule.module and loadedSensorModule.module.reset then loadedSensorModule.module.reset() end
+    if smart and smart.reset then smart.reset() end
+    if msp and msp.reset then msp.reset() end
     loadedSensorModule = nil  -- Clear loaded sensor module
-    msp.reset()
+
 end
 
 return sensors

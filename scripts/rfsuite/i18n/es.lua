@@ -109,9 +109,10 @@ return {
       ["timing_angle"] = "Angulo de timing para el motor",
       ["response_speed"] = "Velocidad de respuesta para el motor",
       ["current_gain"] = "Valor de ganancia para el sensor actual",
-      ["tbl_extgov"] = "Governor Externo",
+      ["tbl_linear_thr"] = "Linear Throttle",
+      ["tbl_rf_gov"] = "RF Gyro Governor",
       ["buzzer_volume"] = "Volumen del Buzzer",
-      ["gov_d"] = "Valor de derivada para el governor",
+      ["drive_freq"] = "PWM drive frequency",
       ["tbl_enabled"] = "Habilitado",
       ["gov_p"] = "Valor proporcional para el governor"
     },
@@ -249,6 +250,15 @@ return {
     ["PILOT_CONFIG"] = {
       ["model_param1_value"] = "Establezca el tiempo esperado de vuelo en segundos. El transmisor emitirá beeps cuando el tiempo establecido se haya alcanzado."
     },
+    ["BATTERY_INI"] = {
+      ["calcfuel_local"] = "Calcular uso de Combustible",
+      ["tbl_off"] = "Sensor de Corriente",
+      ["tbl_on"] = "Sensor de Voltaje",
+      ["sag_multiplier"] = "Elevar o disminuir en función de la caída de voltaje en vuelo.",
+      ["alert_off"] = "Apagado",
+      ["alert_bec"] = "BEC",
+      ["alert_rxbatt"] = "Bat. Rx"
+    },
     ["BATTERY_CONFIG"] = {
       ["vbatmincellvoltage"] = "El voltaje minimo por celda al cual se dispara la alarma de bajo voltaje.",
       ["vbatmaxcellvoltage"] = "El voltaje maximo por celda al cual se dispara la alarma de voltaje alto.",
@@ -291,7 +301,17 @@ return {
       ["gov_handover_throttle"] = "El governor se activa por encima de este %. Por debajo de este valor la posicion del acelerador se transfiere directamente al ESC.",
       ["gov_spoolup_time"] = "Constante de tiempo para arranque lento, en segundos, midiendo desde cero hasta la velocidad maxima del rotor.",
       ["gov_spoolup_min_throttle"] = "Posicion minima del acelerador para arranque lento, en porcentaje. Para motores electricos el valor por defecto es 5%, para nitro este valor deberia hacer que el embrague empiece a acoplarse para un arranque suave 10-15%.",
-      ["tbl_govmode_off"] = "APAGADO"
+      ["tbl_govmode_off"] = "APAGADO",
+      ["tbl_govmode_external"] = "EXTERNAL",
+      ["tbl_govmode_electric"] = "ELECTRIC",
+      ["tbl_govmode_nitro"] = "NITRO",
+      ["tbl_throttle_type_normal"] = "NORMAL",
+      ["tbl_throttle_type_off_on"] = "OFF_ON",
+      ["tbl_throttle_type_off_idle_on"] = "OFF_IDLE_ON",
+      ["tbl_throttle_type_idle_auto_on"] = "IDLE_AUTO_ON",
+      ["governor_idle_throttle"] = "Idle throttle",
+      ["governor_auto_throttle"] = "Auto throttle",
+      ["governor_fallback_drop"] = "Fallback drop"
     },
     ["RC_CONFIG"] = {
       ["rc_deflection"] = "Defleccion desde el centro del joystick en microsegundos (uS).",
@@ -325,6 +345,36 @@ return {
       ["tbl_high"] = "ALTA"
     },
     ["ESC_PARAMETERS_XDFLY"] = {
+      ["tbl_jadegreen"] = "VERDE JADE",
+      ["tbl_off"] = "Apagado",
+      ["tbl_low"] = "Bajo",
+      ["tbl_orange"] = "NARANJA",
+      ["tbl_fmfw"] = "Ala Fija",
+      ["tbl_ccw"] = "AntiH.",
+      ["tbl_medium"] = "Medio",
+      ["tbl_yellow"] = "AMARILLO",
+      ["tbl_reverse"] = "Reversa",
+      ["tbl_red"] = "ROJO",
+      ["tbl_high"] = "Alto",
+      ["tbl_auto"] = "Auto",
+      ["tbl_cw"] = "Horario",
+      ["tbl_fmheli"] = "Helicoptero",
+      ["tbl_purple"] = "PURPURA",
+      ["tbl_green"] = "VERDE",
+      ["tbl_blue"] = "AZUL",
+      ["tbl_slow"] = "Lento",
+      ["tbl_normal"] = "Normal",
+      ["tbl_fast"] = "Rapido",
+      ["tbl_escgov"] = "Governor ESC",
+      ["tbl_white"] = "BLANCO",
+      ["tbl_cyan"] = "CYAN",
+      ["tbl_vslow"] = "Muy Lento",
+      ["tbl_extgov"] = "Governor Externo",
+      ["tbl_pink"] = "ROSA",
+      ["tbl_fwgov"] = "Ala Fija",
+      ["tbl_on"] = "Encendido"
+    },
+    ["ESC_PARAMETERS_OMP"] = {
       ["tbl_jadegreen"] = "VERDE JADE",
       ["tbl_off"] = "Apagado",
       ["tbl_low"] = "Bajo",
@@ -393,12 +443,16 @@ return {
     ["msg_connecting_to_fbl"] = "Conectando al controlador de vuelo...",
     ["navigation_help"] = "?",
     ["modules"] = {
+      ["diagnostics"] = {
+        ["name"] = "Diagnostics",
+        ["help_p1"] = "This module provides various tools to help diagnose issues with your flight controller or configuration."
+      },
       ["stats"] = {
-        ["name"] = "Stats",
-        ["totalflighttime"] = "Total Flight Time",
-        ["flightcount"] = "Flight Count",
-        ["lastflighttime"] = "Last Flight Time",
-        ["help_p1"] = "Use this module to update the recorded flight statistics on the flight controller."
+        ["name"] = "Estadísticas",
+        ["totalflighttime"] = "Tiempo Total de Vuelo",
+        ["flightcount"] = "Nro de Vuelos",
+        ["lastflighttime"] = "Tiempo Ultimo Vuelo",
+        ["help_p1"] = "Utilice este módulo para actualizar las estadísticas guardadas en el controlador de vuelo."
       },
       ["settings"] = {
         ["name"] = "Configuración",
@@ -425,7 +479,12 @@ return {
         ["txt_debug"] = "DEBUG",
         ["txt_mspdata"] = "Log datos msp",
         ["txt_queuesize"] = "Tamaño cola Log MSP",
+        ["txt_taskprofiler"] = "Velocidad tareas de Log",
         ["txt_memusage"] = "Uso de memoria Log",
+        ["txt_batttype"] = "Opciones Batería Tx",
+        ["txt_battdef"] = "Por defecto",
+        ["txt_batttext"] = "Texto",
+        ["txt_battdig"] = "Digital",
         ["dashboard"] = "Panel",
         ["dashboard_theme"] = "Tema",
         ["dashboard_theme_panel_global"] = "Tema por defecto Global",
@@ -457,6 +516,7 @@ return {
         ["bec_threshold"] = "Umbral (V)",
         ["fuel"] = "Combustible",
         ["fuel_callout_default"] = "Por defecto (solo al 10%)",
+        ["fuel_callout_5"] = "50% and 5%",
         ["fuel_callout_10"] = "Cada 10%",
         ["fuel_callout_20"] = "Cada 20%",
         ["fuel_callout_25"] = "Cada 25%",
@@ -472,7 +532,10 @@ return {
         ["timer_postalert_options"] = "Opciones Alerta Post-timer",
         ["timer_postalert"] = "Alerta Post-timer",
         ["timer_postalert_period"] = "Período Alerta",
-        ["timer_postalert_interval"] = "Intervalo Alerta"
+        ["timer_postalert_interval"] = "Intervalo Alerta",
+        ["adj_callouts"] = "Avisos de Ajuste",
+        ["adj_function"] = "Función de Ajuste",
+        ["adj_value"] = "Valor de Ajuste"
       },
       ["validate_sensors"] = {
         ["help_p1"] = "Esta herramienta intenta listar todos los sensores necesarios que faltan.",
@@ -544,6 +607,29 @@ return {
             ["timing"] = "Timing",
             ["gov_p"] = "Gov-P"
           },
+          ["omp"] = {
+            ["hv_bec_voltage"] = "Voltaje HV BEC",
+            ["gov"] = "Governor",
+            ["brake_force"] = "Fuerza de Frenado",
+            ["sr_function"] = "Función SR",
+            ["name"] = "OMPHOBBY",
+            ["lv_bec_voltage"] = "Voltaje LV BEC",
+            ["auto_restart_time"] = "Tiempo Auto Reinicio",
+            ["acceleration"] = "Aceleración",
+            ["motor_direction"] = "Dirección Motor",
+            ["smart_fan"] = "Ventilador Inteligente",
+            ["governor"] = "Governor",
+            ["advanced"] = "Avanzado",
+            ["gov_i"] = "Gov-I",
+            ["cell_cutoff"] = "Corte Celdas",
+            ["led_color"] = "Color LED",
+            ["basic"] = "Básico",
+            ["startup_power"] = "Potencia de Inicio",
+            ["motor_poles"] = "Polos del Motor",
+            ["capacity_correction"] = "Corrección Capacidad",
+            ["timing"] = "Timing",
+            ["gov_p"] = "Gov-P"
+          },
           ["flrtr"] = {
             ["gov"] = "Governor",
             ["motor_temp_sensor"] = "Sensor temp. motor",
@@ -553,7 +639,7 @@ return {
             ["motor_erpm_max"] = "Max ERPM Motor",
             ["name"] = "FLYROTOR",
             ["low_voltage_protection"] = "Proteccion bajo voltaje",
-            ["gov_d"] = "Gov-D",
+            ["drive_freq"] = "Drive frequency",
             ["telemetry_protocol"] = "Protocolo de telemetria",
             ["motor_direction"] = "Direccion del Motor",
             ["throttle_protocol"] = "Protocolo de acelerador",
@@ -735,6 +821,9 @@ return {
         ["help_p6"] = "Asistencia de Torque de Cola: Para colas motorizadas. Ganancia y límite de aceleracion del rotor cuando se utiliza el torque del rotor principal para asistir al giro sobre el eje vertical.",
         ["help_p4"] = "Precomp: Precompensación del Governor para comandos de cíclico, colectivo, y dirección (cola).",
         ["max_throttle"] = "Acelerador Máx",
+        ["idle_throttle"] = "Idle throttle",
+        ["auto_throttle"] = "Auto throttle",
+        ["fallback_drop"] = "Thr. Fallback drop",
         ["full_headspeed"] = "Velocidad Máx Rotor",
         ["precomp"] = "Precomp",
         ["gain"] = "Ganacia PID maestra",
@@ -796,6 +885,7 @@ return {
         ["help_logs_p3"] = "- estado de armado, voltaje, velocidad del rotor, corriente, temperatura del ESC"
       },
       ["battery"] = {
+        ["calcfuel_local"] = "Calcular uso de comustible",
         ["max_cell_voltage"] = "Voltaje Máx Celda",
         ["full_cell_voltage"] = "Voltaje de Celda llena",
         ["name"] = "Batería",
@@ -805,7 +895,11 @@ return {
         ["warn_cell_voltage"] = "Advertencia Voltaje de Celda",
         ["cell_count"] = "Número de Celdas",
         ["consumption_warning_percentage"] = "Advertencia Consumo %",
-        ["timer"] = "Alarma Tiempo Vuelo"
+        ["timer"] = "Alarma Tiempo Vuelo",
+        ["voltage_multiplier"] = "Compensación de caída",
+        ["alert_type"] = "Alerta de voltaje Rx",
+        ["bec_voltage_alert"] = "Valor Alerta BEC",
+        ["rx_voltage_alert"] = "Valor Alerta Bat. RX"
       },
       ["profile_mainrotor"] = {
         ["gain"] = "Ganancia",
@@ -891,16 +985,31 @@ return {
         ["help_p1"] = "Ajuste de enlaces: Se utiliza para corregir pequeños problemas de nivelación en el swashplate. Normalmente se utiliza cuando los brazos del swashplate no son ajustables."
       },
       ["governor"] = {
+        ["menu_general"] = "General",
+        ["menu_filters"] = "Filters",
+        ["menu_time"] = "Time",
         ["help_p1"] = "Estos parámetros se aplican globalmente al governor independientemente del perfil en uso.",
         ["handover_throttle"] = "% Acelerador Transferencia",
         ["spoolup_min_throttle"] = "% Acelerador Mín Arranque",
         ["recovery_time"] = "Tiempo de Recuperación",
         ["mode"] = "Modo",
-        ["help_p2"] = "Todos los parámetros son tiempos en segundos para cada acción del governor.",
+        ["throttle_type"] = "Throttle protocol",
+        ["collective"] = "Collective",
+        ["idle_collective"] = "Idle collective",
+        ["wot_collective"] = "WOT collective",
+        ["throttle_hold_timeout"] = "Throttle hold timeout",
+        ["ramp_time"] = "Ramp time",
+        ["startup_time"] = "Startup time",
+        ["spoolup_time"] = "Tiempo de Arranque",
+        ["spooldown_time"] = "Spooldown time",
         ["tracking_time"] = "Tiempo de Tracking",
+        ["help_p2"] = "Todos los parámetros son tiempos en segundos para cada acción del governor.",
         ["name"] = "Governor",
-        ["startup_time"] = "Tiempo de Inicio",
-        ["spoolup_time"] = "Tiempo de Arranque"
+        ["gov_rpm_filter"] = "RPM Filter Cutoff",
+        ["gov_pwr_filter"] = "Voltage Filter Cutoff",
+        ["gov_tta_filter"] = "TTA Bandwidth",
+        ["gov_ff_filter"] = "Precomp Bandwidth",
+        ["gov_d_filter"] = "D-Term Cutoff"
       },
       ["accelerometer"] = {
         ["help_p1"] = "El acelerómetro se utiliza para medir el ángulo del controlador de vuelo respecto del horizonte. Los datos obtenidos son utilizados para estabilizar la aeronave y porveer funcionalidad de nivelado automático.",
@@ -964,6 +1073,8 @@ return {
         ["help_p1"] = "Esta página provee información que le puede ser requerida cuando solicite soporte técnico.",
         ["msgbox_credits"] = "Créditos",
         ["ethos_version"] = "Versión de Ethos",
+        ["rf_version"] = "Versión de Rotorflight",
+        ["fc_version"] = "Versión de FC",
         ["name"] = "Acerca de",
         ["supported_versions"] = "Ver. MSP Soportadas",
         ["license"] = "Puede copiar, distribuir, y modificar este software siempre y cuando se comprometa a marcar/fechar los cambios en el código fuente. Todas las modificaciones a nuestro software incluyendo código licenciado mediante GPL (via compilador) deben ser distribuidas bajo licencia GPL junto con instrucciones de compilación e instalación.",
@@ -1183,13 +1294,15 @@ return {
       ["governor"] = "Estado Governor",
       ["adj_func"] = "Ajus.(Función)",
       ["fuel"] = "Nivel de Carga",
-      ["smartfuel"] = "Smart Fuel",
+      ["smartfuel"] = "Combustible Inteligente",
       ["rssi"] = "RSSI",
+      ["link"] = "Calidad de Enlace",
       ["adj_val"] = "Ajus.(Valor)",
       ["arming_flags"] = "Banderas Armado",
       ["current"] = "Corriente",
       ["throttle_pct"] = "% Acelerador",
       ["consumption"] = "Consumo",
+      ["smartconsumption"] = "Consumo Inteligente",
       ["pid_profile"] = "Perfil PID",
       ["mcu_temp"] = "Temperatura MCU",
       ["armdisableflags"] = "Desactivar Armado"
@@ -1268,7 +1381,9 @@ return {
       ["power"] = "Potencia",
       ["cell_voltage"] = "Voltaje Celda",
       ["volts_per_cell"] = "Volts por celda",
-      ["warning"] = "Advertencia"
+      ["warning"] = "Advertencia",
+      ["tx_batt"] = "Batería TX",
+      ["link_max"] = "Max Enlace"
     },
     ["governor"] = {
       ["UNKNOWN"] = "DESCONOCIDO",

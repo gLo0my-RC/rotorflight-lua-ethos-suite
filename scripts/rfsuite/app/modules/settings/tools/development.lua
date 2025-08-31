@@ -172,11 +172,26 @@ formFieldCount = formFieldCount + 1
                                                             end    
                                                         end)  
 
+    formFieldCount = formFieldCount + 1
+    rfsuite.app.formLineCnt = rfsuite.app.formLineCnt + 1
+    rfsuite.app.formLines[rfsuite.app.formLineCnt] = logpanel:addLine(i18n("app.modules.settings.txt_taskprofiler"))
+    rfsuite.app.formFields[formFieldCount] = form.addBooleanField(rfsuite.app.formLines[rfsuite.app.formLineCnt], 
+                                                        nil, 
+                                                        function() 
+                                                            if rfsuite.preferences and rfsuite.preferences.developer then
+                                                                return settings['taskprofiler'] 
+                                                            end
+                                                        end, 
+                                                        function(newValue) 
+                                                            if rfsuite.preferences and rfsuite.preferences.developer then
+                                                                settings.taskprofiler = newValue
+                                                            end    
+                                                        end)                                                          
     
 end
 
 local function onNavMenu()
-    rfsuite.app.ui.progressDisplay()
+    rfsuite.app.ui.progressDisplay(nil,nil,true)
     rfsuite.app.ui.openPage(
         pageIdx,
         i18n("app.modules.settings.name"),

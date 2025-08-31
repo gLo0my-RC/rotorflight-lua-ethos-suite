@@ -198,8 +198,9 @@ local function openPage(pidx, title, script)
 
 
         local section = pvalue
-        local hideSection = (section.ethosversion and rfsuite.session.ethosRunningVersion < section.ethosversion) or
-                            (section.mspversion and (rfsuite.session.apiVersion or 1) < section.mspversion) 
+        local hideSection =
+            (section.ethosversion and rfsuite.session.ethosRunningVersion < section.ethosversion) or
+            (section.mspversion   and rfsuite.utils.apiVersionCompare("<", section.mspversion))
                             --or
                             --(section.developer and not rfsuite.preferences.developer.devtools)
 
@@ -284,7 +285,7 @@ local function wakeup()
     end
 
     if showPowerCycleLoaderFinished == false and foundESCupdateTag == false and showPowerCycleLoader == false and ((findTimeoutClock <= os.clock() - findTimeout) or rfsuite.app.dialogs.progressCounter >= 101) then
-        rfsuite.app.ui.progressDisplayClose()
+        rfsuite.app.dialogs.progress:close()
         rfsuite.app.dialogs.progressDisplay = false
         rfsuite.app.triggers.isReady = true
 

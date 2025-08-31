@@ -15,6 +15,13 @@ local function openPage(pidx, title, script)
     rfsuite.app.triggers.closeProgressLoader = true
     form.clear()
 
+    -- Clear old icons
+    for i in pairs(rfsuite.app.gfx_buttons) do
+        if i ~= "settings_dashboard_themes" then
+            rfsuite.app.gfx_buttons[i] = nil
+        end
+    end   
+
 
     rfsuite.app.lastIdx    = pageIdx
     rfsuite.app.lastTitle  = title
@@ -87,7 +94,7 @@ local function openPage(pidx, title, script)
                     -- Optional: your action when pressing a theme
                     -- Example: rfsuite.app.ui.loadTheme(theme.folder)
                     rfsuite.preferences.menulastselected["settings_dashboard_themes"] = idx
-                rfsuite.app.ui.progressDisplay()
+                rfsuite.app.ui.progressDisplay(nil,nil,true)
                     local configure = theme.configure
                     local source = theme.source
                     local folder = theme.folder
@@ -122,7 +129,7 @@ local function openPage(pidx, title, script)
     end
 
     if n == 0 then
-        local w, h = rfsuite.utils.getWindowSize()
+        local w, h = lcd.getWindowSize()
         local msg = i18n("app.modules.settings.no_themes_available_to_configure")
         local tw, th = lcd.getTextSize(msg)
         local x = w / 2 - tw / 2
@@ -153,12 +160,12 @@ local function event(widget, category, value, x, y)
 end
 
 local function onNavMenu()
-    rfsuite.app.ui.progressDisplay()
-        rfsuite.app.ui.openPage(
-            pageIdx,
-            i18n("app.modules.settings.dashboard"),
-            "settings/tools/dashboard.lua"
-        )
+    rfsuite.app.ui.progressDisplay(nil,nil,true)
+    rfsuite.app.ui.openPage(
+        pageIdx,
+        i18n("app.modules.settings.dashboard"),
+        "settings/tools/dashboard.lua"
+    )
         return true
 end
 

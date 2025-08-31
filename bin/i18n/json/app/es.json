@@ -90,31 +90,43 @@
     "needs_translation": "false"
   },
   "modules": {
-    "stats": {
+    "diagnostics": {
       "name": {
-        "english": "Stats",
-        "translation": "Stats",
-        "needs_translation": "true"
-      },
-      "totalflighttime": {
-        "english": "Total Flight Time",
-        "translation": "Total Flight Time",
-        "needs_translation": "true"
-      },
-      "flightcount": {
-        "english": "Flight Count",
-        "translation": "Flight Count",
-        "needs_translation": "true"
-      },
-      "lastflighttime": {
-        "english": "Last Flight Time",
-        "translation": "Last Flight Time",
+        "english": "Diagnostics",
+        "translation": "Diagnostics",
         "needs_translation": "true"
       },
       "help_p1": {
-        "english": "Use this module to update the recorded flight statistics on the flight controller.",
-        "translation": "Use this module to update the recorded flight statistics on the flight controller.",
+        "english": "This module provides various tools to help diagnose issues with your flight controller or configuration.",
+        "translation": "This module provides various tools to help diagnose issues with your flight controller or configuration.",
         "needs_translation": "true"
+      }
+    },
+    "stats": {
+      "name": {
+        "english": "Stats",
+        "translation": "Estadísticas",
+        "needs_translation": "false"
+      },
+      "totalflighttime": {
+        "english": "Total Flight Time",
+        "translation": "Tiempo Total de Vuelo",
+        "needs_translation": "false"
+      },
+      "flightcount": {
+        "english": "Flight Count",
+        "translation": "Nro de Vuelos",
+        "needs_translation": "false"
+      },
+      "lastflighttime": {
+        "english": "Last Flight Time",
+        "translation": "Tiempo Ultimo Vuelo",
+        "needs_translation": "false"
+      },
+      "help_p1": {
+        "english": "Use this module to update the recorded flight statistics on the flight controller.",
+        "translation": "Utilice este módulo para actualizar las estadísticas guardadas en el controlador de vuelo.",
+        "needs_translation": "false"
       }
     },
     "settings": {
@@ -238,9 +250,34 @@
         "translation": "Tamaño cola Log MSP",
         "needs_translation": "false"
       },
+      "txt_taskprofiler": {
+        "english": "Log tasks speed",
+        "translation": "Velocidad tareas de Log",
+        "needs_translation": "false"
+      },
       "txt_memusage": {
         "english": "Log memory usage",
         "translation": "Uso de memoria Log",
+        "needs_translation": "false"
+      },
+      "txt_batttype": {
+        "english": "Tx Battery Options",
+        "translation": "Opciones Batería Tx",
+        "needs_translation": "false"
+      },
+      "txt_battdef": {
+        "english": "Default",
+        "translation": "Por defecto",
+        "needs_translation": "false"
+      },
+      "txt_batttext": {
+        "english": "Text",
+        "translation": "Texto",
+        "needs_translation": "false"
+      },
+      "txt_battdig": {
+        "english": "Digital",
+        "translation": "Digital",
         "needs_translation": "false"
       },
       "dashboard": {
@@ -398,6 +435,11 @@
         "translation": "Por defecto (solo al 10%)",
         "needs_translation": "false"
       },
+      "fuel_callout_5": {
+        "english": "50% and 5%",
+        "translation": "50% and 5%",
+        "needs_translation": "true"
+      },
       "fuel_callout_10": {
         "english": "Every 10%",
         "translation": "Cada 10%",
@@ -476,6 +518,21 @@
       "timer_postalert_interval": {
         "english": "Alert Interval",
         "translation": "Intervalo Alerta",
+        "needs_translation": "false"
+      },
+      "adj_callouts": {
+        "english": "Adjustment Callouts",
+        "translation": "Avisos de Ajuste",
+        "needs_translation": "false"
+      },
+      "adj_function": {
+        "english": "Adjustment Function",
+        "translation": "Función de Ajuste",
+        "needs_translation": "false"
+      },
+      "adj_value": {
+        "english": "Adjustment Value",
+        "translation": "Valor de Ajuste",
         "needs_translation": "false"
       }
     },
@@ -789,6 +846,113 @@
             "needs_translation": "false"
           }
         },
+        "omp": {
+          "hv_bec_voltage": {
+            "english": "HV BEC Voltage",
+            "translation": "Voltaje HV BEC",
+            "needs_translation": "false"
+          },
+          "gov": {
+            "english": "Governor",
+            "translation": "Governor",
+            "needs_translation": "false"
+          },
+          "brake_force": {
+            "english": "Brake Force",
+            "translation": "Fuerza de Frenado",
+            "needs_translation": "false"
+          },
+          "sr_function": {
+            "english": "SR Function",
+            "translation": "Función SR",
+            "needs_translation": "false"
+          },
+          "name": {
+            "english": "OMPHOBBY",
+            "translation": "OMPHOBBY",
+            "needs_translation": "false"
+          },
+          "lv_bec_voltage": {
+            "english": "LV BEC Voltage",
+            "translation": "Voltaje LV BEC",
+            "needs_translation": "false"
+          },
+          "auto_restart_time": {
+            "english": "Auto Restart Time",
+            "translation": "Tiempo Auto Reinicio",
+            "needs_translation": "false"
+          },
+          "acceleration": {
+            "english": "Acceleration",
+            "translation": "Aceleración",
+            "needs_translation": "false"
+          },
+          "motor_direction": {
+            "english": "Motor Direction",
+            "translation": "Dirección Motor",
+            "needs_translation": "false"
+          },
+          "smart_fan": {
+            "english": "Smart Fan",
+            "translation": "Ventilador Inteligente",
+            "needs_translation": "false"
+          },
+          "governor": {
+            "english": "Governor",
+            "translation": "Governor",
+            "needs_translation": "false"
+          },
+          "advanced": {
+            "english": "Advanced",
+            "translation": "Avanzado",
+            "needs_translation": "false"
+          },
+          "gov_i": {
+            "english": "Gov-I",
+            "translation": "Gov-I",
+            "needs_translation": "false"
+          },
+          "cell_cutoff": {
+            "english": "Cell Cutoff",
+            "translation": "Corte Celdas",
+            "needs_translation": "false"
+          },
+          "led_color": {
+            "english": "LED Color",
+            "translation": "Color LED",
+            "needs_translation": "false"
+          },
+          "basic": {
+            "english": "Basic",
+            "translation": "Básico",
+            "needs_translation": "false"
+          },
+          "startup_power": {
+            "english": "Startup Power",
+            "translation": "Potencia de Inicio",
+            "needs_translation": "false"
+          },
+          "motor_poles": {
+            "english": "Motor Poles",
+            "translation": "Polos del Motor",
+            "needs_translation": "false"
+          },
+          "capacity_correction": {
+            "english": "Capacity Correction",
+            "translation": "Corrección Capacidad",
+            "needs_translation": "false"
+          },
+          "timing": {
+            "english": "Timing",
+            "translation": "Timing",
+            "needs_translation": "false"
+          },
+          "gov_p": {
+            "english": "Gov-P",
+            "translation": "Gov-P",
+            "needs_translation": "false"
+          }
+        },
         "flrtr": {
           "gov": {
             "english": "Governor",
@@ -830,9 +994,9 @@
             "translation": "Proteccion bajo voltaje",
             "needs_translation": "false"
           },
-          "gov_d": {
-            "english": "Gov-D",
-            "translation": "Gov-D",
+          "drive_freq": {
+            "english": "Drive frequency",
+            "translation": "Drive frequency",
             "needs_translation": "false"
           },
           "telemetry_protocol": {
@@ -1660,6 +1824,21 @@
         "translation": "Acelerador Máx",
         "needs_translation": "false"
       },
+      "idle_throttle": {
+        "english": "Idle throttle",
+        "translation": "Idle throttle",
+        "needs_translation": "true"
+      },
+      "auto_throttle": {
+        "english": "Auto throttle",
+        "translation": "Auto throttle",
+        "needs_translation": "true"
+      },
+      "fallback_drop": {
+        "english": "Thr. Fallback drop",
+        "translation": "Thr. Fallback drop",
+        "needs_translation": "true"
+      },
       "full_headspeed": {
         "english": "Full headspeed",
         "translation": "Velocidad Máx Rotor",
@@ -1933,6 +2112,11 @@
       }
     },
     "battery": {
+      "calcfuel_local": {
+        "english": "Calculate Fuel Using",
+        "translation": "Calcular uso de comustible",
+        "needs_translation": "false"
+      },
       "max_cell_voltage": {
         "english": "Max Cell Voltage",
         "translation": "Voltaje Máx Celda",
@@ -1981,6 +2165,26 @@
       "timer": {
         "english": "Flight Time Alarm",
         "translation": "Alarma Tiempo Vuelo",
+        "needs_translation": "false"
+      },
+      "voltage_multiplier": {
+        "english": "Sag Compensation",
+        "translation": "Compensación de caída",
+        "needs_translation": "false"
+      },
+      "alert_type": {
+        "english": "Rx Voltage Alert",
+        "translation": "Alerta de voltaje Rx",
+        "needs_translation": "false"
+      },
+      "bec_voltage_alert": {
+        "english": "BEC Alert Value",
+        "translation": "Valor Alerta BEC",
+        "needs_translation": "false"
+      },
+      "rx_voltage_alert": {
+        "english": "RxBatt Alert Value",
+        "translation": "Valor Alerta Bat. RX",
         "needs_translation": "false"
       }
     },
@@ -2368,6 +2572,21 @@
       }
     },
     "governor": {
+      "menu_general": {
+        "english": "General",
+        "translation": "General",
+        "needs_translation": "true"
+      },
+      "menu_filters": {
+        "english": "Filters",
+        "translation": "Filters",
+        "needs_translation": "true"
+      },
+      "menu_time": {
+        "english": "Ramp Time",
+        "translation": "Time",
+        "needs_translation": "true"
+      },
       "help_p1": {
         "english": "These parameters apply globally to the governor regardless of the profile in use.",
         "translation": "Estos parámetros se aplican globalmente al governor independientemente del perfil en uso.",
@@ -2393,14 +2612,59 @@
         "translation": "Modo",
         "needs_translation": "false"
       },
-      "help_p2": {
-        "english": "Each parameter is simply a time value in seconds for each governor action.",
-        "translation": "Todos los parámetros son tiempos en segundos para cada acción del governor.",
+      "throttle_type": {
+        "english": "Throttle type",
+        "translation": "Throttle protocol",
+        "needs_translation": "true"
+      },
+      "collective": {
+        "english": "Collective",
+        "translation": "Collective",
+        "needs_translation": "true"
+      },
+      "idle_collective": {
+        "english": "Idle Collective",
+        "translation": "Idle collective",
+        "needs_translation": "true"
+      },
+      "wot_collective": {
+        "english": "WOT Collective",
+        "translation": "WOT collective",
+        "needs_translation": "true"
+      },
+      "throttle_hold_timeout": {
+        "english": "Throttle hold timeout",
+        "translation": "Throttle hold timeout",
+        "needs_translation": "true"
+      },
+      "ramp_time": {
+        "english": "Ramp time",
+        "translation": "Ramp time",
+        "needs_translation": "true"
+      },
+      "startup_time": {
+        "english": "Startup time",
+        "translation": "Startup time",
+        "needs_translation": "true"
+      },
+      "spoolup_time": {
+        "english": "Spoolup time",
+        "translation": "Tiempo de Arranque",
         "needs_translation": "false"
+      },
+      "spooldown_time": {
+        "english": "Spooldown time",
+        "translation": "Spooldown time",
+        "needs_translation": "true"
       },
       "tracking_time": {
         "english": "Tracking time",
         "translation": "Tiempo de Tracking",
+        "needs_translation": "false"
+      },
+      "help_p2": {
+        "english": "Each parameter is simply a time value in seconds for each governor action.",
+        "translation": "Todos los parámetros son tiempos en segundos para cada acción del governor.",
         "needs_translation": "false"
       },
       "name": {
@@ -2408,15 +2672,30 @@
         "translation": "Governor",
         "needs_translation": "false"
       },
-      "startup_time": {
-        "english": "Startup time",
-        "translation": "Tiempo de Inicio",
-        "needs_translation": "false"
+      "gov_rpm_filter": {
+        "english": "RPM Filter Cutoff",
+        "translation": "RPM Filter Cutoff",
+        "needs_translation": "true"
       },
-      "spoolup_time": {
-        "english": "Spoolup time",
-        "translation": "Tiempo de Arranque",
-        "needs_translation": "false"
+      "gov_pwr_filter": {
+        "english": "Voltage Filter Cutoff",
+        "translation": "Voltage Filter Cutoff",
+        "needs_translation": "true"
+      },
+      "gov_tta_filter": {
+        "english": "TTA Bandwidth",
+        "translation": "TTA Bandwidth",
+        "needs_translation": "true"
+      },
+      "gov_ff_filter": {
+        "english": "Precomp Bandwidth",
+        "translation": "Precomp Bandwidth",
+        "needs_translation": "true"
+      },
+      "gov_d_filter": {
+        "english": "D-Term Cutoff",
+        "translation": "D-Term Cutoff",
+        "needs_translation": "true"
       }
     },
     "accelerometer": {
@@ -2699,6 +2978,16 @@
       "ethos_version": {
         "english": "Ethos Version",
         "translation": "Versión de Ethos",
+        "needs_translation": "false"
+      },
+      "rf_version": {
+        "english": "Rotorflight Version",
+        "translation": "Versión de Rotorflight",
+        "needs_translation": "false"
+      },
+      "fc_version": {
+        "english": "FC Version",
+        "translation": "Versión de FC",
         "needs_translation": "false"
       },
       "name": {

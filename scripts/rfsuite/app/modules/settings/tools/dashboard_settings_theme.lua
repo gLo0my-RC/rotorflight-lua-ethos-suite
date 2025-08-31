@@ -21,7 +21,7 @@ local function openPage(idx, title, script, source, folder,themeScript)
     page = assert(rfsuite.compiler.loadfile(modulePath))(idx)
 
     -- load up the menu
-    local w, h = rfsuite.utils.getWindowSize()
+    local w, h = lcd.getWindowSize()
     local windowWidth = w
     local windowHeight = h
     local padding = rfsuite.app.radio.buttonPadding
@@ -138,7 +138,7 @@ local function event(widget, category, value, x, y)
 end
 
 local function onNavMenu()
-    --rfsuite.app.ui.progressDisplay()
+    rfsuite.app.ui.progressDisplay(nil,nil,true)
         rfsuite.app.ui.openPage(
             pageIdx,
             i18n("app.modules.settings.dashboard"),

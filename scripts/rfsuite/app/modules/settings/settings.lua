@@ -23,6 +23,13 @@ local function openPage(pidx, title, script)
     rfsuite.app.lastTitle = title
     rfsuite.app.lastScript = script
 
+    -- Clear old icons
+    for i in pairs(rfsuite.app.gfx_buttons) do
+        if i ~= "settings" then
+            rfsuite.app.gfx_buttons[i] = nil
+        end
+    end
+
     ESC = {}
 
     -- size of buttons
@@ -32,7 +39,7 @@ local function openPage(pidx, title, script)
         rfsuite.preferences.general.iconsize = tonumber(rfsuite.preferences.general.iconsize)
     end
 
-    local w, h = rfsuite.utils.getWindowSize()
+    local w, h = lcd.getWindowSize()
     local windowWidth = w
     local windowHeight = h
     local padding = rfsuite.app.radio.buttonPadding
@@ -55,8 +62,11 @@ local function openPage(pidx, title, script)
             rfsuite.app.lastIdx = nil
             rfsuite.session.lastPage = nil
 
-            if rfsuite.app.Page and rfsuite.app.Page.onNavMenu then rfsuite.app.Page.onNavMenu(rfsuite.app.Page) end
-
+            if rfsuite.app.Page and rfsuite.app.Page.onNavMenu then 
+                    rfsuite.app.Page.onNavMenu(rfsuite.app.Page) 
+            else
+                rfsuite.app.ui.progressDisplay(nil,nil,true)
+            end
             rfsuite.app.ui.openMainMenu()
         end
     })
@@ -128,7 +138,7 @@ local function openPage(pidx, title, script)
             end,
             press = function()
                 rfsuite.preferences.menulastselected["settings"] = pidx
-                rfsuite.app.ui.progressDisplay()
+                rfsuite.app.ui.progressDisplay(nil,nil,true)
                 rfsuite.app.ui.openPage(pidx, pvalue.folder, "settings/tools/" .. pvalue.script)
             end
         })

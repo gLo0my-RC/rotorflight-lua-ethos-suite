@@ -336,9 +336,14 @@
       "translation": "Valore Guadagno per il sensore corrente",
       "needs_translation": "false"
     },
-    "tbl_extgov": {
-      "english": "External Governor",
-      "translation": "Governor Esterno",
+    "tbl_linear_thr": {
+      "english": "Linear Throttle",
+      "translation": "Linear Throttle",
+      "needs_translation": "false"
+    },
+    "tbl_rf_gov": {
+      "english": "RF Gyro Governor",
+      "translation": "RF Gyro Governor",
       "needs_translation": "false"
     },
     "buzzer_volume": {
@@ -346,9 +351,9 @@
       "translation": "Volume Buzzer",
       "needs_translation": "false"
     },
-    "gov_d": {
-      "english": "Derivative value for the governor",
-      "translation": "Valore Derivativo per il governor",
+    "drive_freq": {
+      "english": "PWM drive frequency",
+      "translation": "PWM drive frequency",
       "needs_translation": "false"
     },
     "tbl_enabled": {
@@ -976,6 +981,43 @@
       "needs_translation": "false"
     }
   },
+  "BATTERY_INI": {
+    "calcfuel_local": {
+      "english": "Calculate Fuel Using",
+      "translation": "Calculate Fuel Using",
+      "needs_translation": "true"
+    },
+    "tbl_off": {
+      "english": "Current Sensor",
+      "translation": "Current Sensor",
+      "needs_translation": "true"
+    },
+    "tbl_on": {
+      "english": "Voltage Sensor",
+      "translation": "Voltage Sensor",
+      "needs_translation": "true"
+    },
+    "sag_multiplier": {
+      "english": "Raise or lower to adjust for the amount of voltage sag you see in flight.",
+      "translation": "Raise or lower to adjust for the amount of voltage sag you see in flight.",
+      "needs_translation": "true"
+    },
+    "alert_off": {
+      "english": "Off",
+      "translation": "Off",
+      "needs_translation": "true"
+    },
+    "alert_bec": {
+      "english": "BEC",
+      "translation": "BEC",
+      "needs_translation": "true"
+    },
+    "alert_rxbatt": {
+      "english": "RxBatt",
+      "translation": "Rx Batt",
+      "needs_translation": "true"
+    }
+  },
   "BATTERY_CONFIG": {
     "vbatmincellvoltage": {
       "english": "The minimum voltage per cell before the low voltage alarm is triggered.",
@@ -1162,6 +1204,56 @@
       "english": "OFF",
       "translation": "OFF",
       "needs_translation": "false"
+    },
+    "tbl_govmode_external": {
+      "english": "EXTERNAL",
+      "translation": "EXTERNAL",
+      "needs_translation": "true"
+    },
+    "tbl_govmode_electric": {
+      "english": "ELECTRIC",
+      "translation": "ELECTRIC",
+      "needs_translation": "true"
+    },
+    "tbl_govmode_nitro": {
+      "english": "NITRO",
+      "translation": "NITRO",
+      "needs_translation": "true"
+    },
+    "tbl_throttle_type_normal": {
+      "english": "NORMAL",
+      "translation": "NORMAL",
+      "needs_translation": "true"
+    },
+    "tbl_throttle_type_off_on": {
+      "english": "OFF_ON",
+      "translation": "OFF_ON",
+      "needs_translation": "true"
+    },
+    "tbl_throttle_type_off_idle_on": {
+      "english": "OFF_IDLE_ON",
+      "translation": "OFF_IDLE_ON",
+      "needs_translation": "true"
+    },
+    "tbl_throttle_type_idle_auto_on": {
+      "english": "IDLE_AUTO_ON",
+      "translation": "IDLE_AUTO_ON",
+      "needs_translation": "true"
+    },
+    "governor_idle_throttle": {
+      "english": "Idle throttle",
+      "translation": "Idle throttle",
+      "needs_translation": "true"
+    },
+    "governor_auto_throttle": {
+      "english": "Auto throttle",
+      "translation": "Auto throttle",
+      "needs_translation": "true"
+    },
+    "governor_fallback_drop": {
+      "english": "Fallback drop",
+      "translation": "Fallback drop",
+      "needs_translation": "true"
     }
   },
   "RC_CONFIG": {
@@ -1304,6 +1396,148 @@
     }
   },
   "ESC_PARAMETERS_XDFLY": {
+    "tbl_jadegreen": {
+      "english": "JADE GREEN",
+      "translation": "VERDE GIADA",
+      "needs_translation": "false"
+    },
+    "tbl_off": {
+      "english": "Off",
+      "translation": "Off",
+      "needs_translation": "false"
+    },
+    "tbl_low": {
+      "english": "Low",
+      "translation": "basso",
+      "needs_translation": "false"
+    },
+    "tbl_orange": {
+      "english": "ORANGE",
+      "translation": "ARANCIO",
+      "needs_translation": "false"
+    },
+    "tbl_fmfw": {
+      "english": "Fixed Wing",
+      "translation": "Ala Fissa",
+      "needs_translation": "false"
+    },
+    "tbl_ccw": {
+      "english": "CCW",
+      "translation": "CCW",
+      "needs_translation": "false"
+    },
+    "tbl_medium": {
+      "english": "Medium",
+      "translation": "Medio",
+      "needs_translation": "false"
+    },
+    "tbl_yellow": {
+      "english": "YELLOW",
+      "translation": "GIALLO",
+      "needs_translation": "false"
+    },
+    "tbl_reverse": {
+      "english": "Reverse",
+      "translation": "Inverti",
+      "needs_translation": "false"
+    },
+    "tbl_red": {
+      "english": "Red",
+      "translation": "Rosso",
+      "needs_translation": "false"
+    },
+    "tbl_high": {
+      "english": "High",
+      "translation": "Alto",
+      "needs_translation": "false"
+    },
+    "tbl_auto": {
+      "english": "Auto",
+      "translation": "Auto",
+      "needs_translation": "false"
+    },
+    "tbl_cw": {
+      "english": "CW",
+      "translation": "CW",
+      "needs_translation": "false"
+    },
+    "tbl_fmheli": {
+      "english": "Helicopter",
+      "translation": "Elicottero",
+      "needs_translation": "false"
+    },
+    "tbl_purple": {
+      "english": "PURPLE",
+      "translation": "VIOLA",
+      "needs_translation": "false"
+    },
+    "tbl_green": {
+      "english": "GREEN",
+      "translation": "VERDE",
+      "needs_translation": "false"
+    },
+    "tbl_blue": {
+      "english": "BLUE",
+      "translation": "BLU",
+      "needs_translation": "false"
+    },
+    "tbl_slow": {
+      "english": "Slow",
+      "translation": "Lento",
+      "needs_translation": "false"
+    },
+    "tbl_normal": {
+      "english": "Normal",
+      "translation": "Normale",
+      "needs_translation": "false"
+    },
+    "tbl_fast": {
+      "english": "Fast",
+      "translation": "Veloce",
+      "needs_translation": "false"
+    },
+    "tbl_escgov": {
+      "english": "ESC Governor",
+      "translation": "ESC Governor",
+      "needs_translation": "false"
+    },
+    "tbl_white": {
+      "english": "WHITE",
+      "translation": "BIANCO",
+      "needs_translation": "false"
+    },
+    "tbl_cyan": {
+      "english": "CYAN",
+      "translation": "CYANO",
+      "needs_translation": "false"
+    },
+    "tbl_vslow": {
+      "english": "Very Slow",
+      "translation": "Molto Lento",
+      "needs_translation": "false"
+    },
+    "tbl_extgov": {
+      "english": "External Governor",
+      "translation": "Governor Esterno",
+      "needs_translation": "false"
+    },
+    "tbl_pink": {
+      "english": "PINK",
+      "translation": "ROSA",
+      "needs_translation": "false"
+    },
+    "tbl_fwgov": {
+      "english": "Fixed Wing",
+      "translation": "Ala Fissa",
+      "needs_translation": "false"
+    },
+    "tbl_on": {
+      "english": "On",
+      "translation": "On",
+      "needs_translation": "false"
+    }
+  },
+  "ESC_PARAMETERS_OMP": {
     "tbl_jadegreen": {
       "english": "JADE GREEN",
       "translation": "VERDE GIADA",

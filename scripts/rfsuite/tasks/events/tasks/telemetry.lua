@@ -35,24 +35,34 @@ local lastLowFuelAnnounced   = false
 local lastLowFuelRepeat      = 0
 local lastLowFuelRepeatCount = 0
 
+local function buildSmartfuelThresholds(sel)
+    if sel == 0 then
+        return {100, 10}
+    elseif sel == 10 then
+        local t = {}
+        for i = 100, 10, -10 do t[#t+1] = i end
+        return t
+    elseif sel == 20 then
+        local t = {}
+        for i = 100, 20, -20 do t[#t+1] = i end
+        t[#t+1] = 10
+        return t
+    elseif sel == 25 then
+        return {100, 75, 50, 25, 10}
+    elseif sel == 50 then
+        return {100, 50, 10}
+    elseif sel == 5 then
+        return {50, 5}
+    elseif type(sel) == "number" and sel > 0 then
+        return {sel}
+    else
+        return {10}
+    end
+end
+
 local function smartfuelCallout(value)
     local smartfuelcallout = tonumber(eventPrefs.smartfuelcallout) or 0
-    local thresholds = {}
-
-    -- Unify thresholds logic, including 0 as a special 'default' pattern: 100%, 10%
-    if smartfuelcallout == 0 then
-        for _, i in ipairs({100, 10}) do table.insert(thresholds, i) end
-    elseif smartfuelcallout == 10 then
-        for i = 100, 10, -10 do table.insert(thresholds, i) end
-    elseif smartfuelcallout == 25 then
-        for i = 100, 25, -25 do table.insert(thresholds, i) end
-    elseif smartfuelcallout == 50 then
-        for _, i in ipairs({100, 50}) do table.insert(thresholds, i) end
-    elseif smartfuelcallout == 20 then
-        for _, i in ipairs({100, 75, 50, 25, 20}) do table.insert(thresholds, i) end
-    else
-        table.insert(thresholds, smartfuelcallout)
-    end
+    local thresholds = buildSmartfuelThresholds(smartfuelcallout)
 
     -- 0% logic (repeats, haptic)
     if value <= 0 then
@@ -214,19 +224,35 @@ local eventTable = {
         interval = 10,
         window = 5,
         event = function(value, interval, window)
-            if not eventPrefs.bec_voltage then return end
             if rfsuite.flightmode.current ~= "inflight" then
                 lastAlertState["bec_voltage"] = false
                 return
             end
-            local becalertvalue = tonumber(eventPrefs.becalertvalue) or 6.5
-            local avgBEC = updateRollingAverage("bec_voltage", value, window)
-            local key = "bec_voltage"
-            if avgBEC < becalertvalue and shouldAlert(key, interval) then
-                rfsuite.utils.playFile("events", "alerts/becvolt.wav")
-                system.playHaptic(". . . .")
-                registerAlert(key, interval)
-            elseif avgBEC >= becalertvalue then
+
+            local batprefs = (rfsuite.session.modelPreferences and rfsuite.session.modelPreferences.battery) or {}
+            local alert_type     = tonumber(batprefs.alert_type or 0)
+            local becalertvalue  = tonumber(batprefs.becalertvalue or 6.5)
+            local rxalertvalue   = tonumber(batprefs.rxalertvalue or 7.4)
+            local avgBEC         = updateRollingAverage("bec_voltage", value, window)
+            local key            = "bec_voltage"
+
+            if alert_type == 1 then
+                if avgBEC < becalertvalue and shouldAlert(key, interval) then
+                    rfsuite.utils.playFile("events", "alerts/becvolt.wav")
+                    system.playHaptic(". . . .")
+                    registerAlert(key, interval)
+                elseif avgBEC >= becalertvalue then
+                    lastAlertState[key] = false
+                end
+            elseif alert_type == 2 then
+                if avgBEC < rxalertvalue and shouldAlert(key, interval) then
+                    rfsuite.utils.playFile("events", "alerts/rxvolt.wav")
+                    system.playHaptic(". . . .")
+                    registerAlert(key, interval)
+                elseif avgBEC >= rxalertvalue then
+                    lastAlertState[key] = false
+                end
+            else
                 lastAlertState[key] = false
             end
         end
@@ -278,8 +304,9 @@ function telemetry.wakeup()
     local now = os.clock()
     for _, item in ipairs(eventTable) do
         local key = item.sensor
+        local interval = item.interval or 0
         local debounce = item.debounce or 0
-        local lastTime = lastEventTimes[key] or (now - debounce)
+        local lastTime = lastEventTimes[key] or (now - interval)
         local lastVal = lastValues[key]
 
         if not eventPrefs[key] then goto continue end
@@ -290,8 +317,10 @@ function telemetry.wakeup()
         local value = source:value()
         if value == nil then goto continue end
 
-        if (not lastVal or value ~= lastVal) or debounce == 0 or (now - lastTime) >= debounce then
-            item.event(value, item.interval or 0, item.window or 1)
+        if interval > 0 then
+            item.event(value, interval, item.window or 1)
+        elseif (not lastVal or value ~= lastVal) or debounce == 0 or (now - lastTime) >= debounce then
+            item.event(value, interval, item.window or 1)
             lastEventTimes[key] = now
         end
 
